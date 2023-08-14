@@ -1,17 +1,39 @@
 //
 
 import UIKit
-
-class Activity {
-    let title: String
-    let value: Int
+ 
+enum Activity: CaseIterable {
+    case none
+    case low
+    case medium
+    case high
     
-    init(title: String, value: Int) {
-        self.title = title
-        self.value = value
+    var title: String {
+        switch self {
+        case .none:
+            return "None"
+        case .low:
+            return "Low"
+        case .medium:
+            return "Medium"
+        case .high:
+            return "High"
+        }
+    }
+    
+    var value: Int {
+        switch self {
+        case .none:
+            return 0
+        case .low:
+            return 50
+        case .medium:
+            return 150
+        case .high:
+            return 250
+        }
     }
 }
-
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var sexSegmentControl: UISegmentedControl!
@@ -22,14 +44,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var calculateButton: UIButton!
     @IBOutlet weak var resultLabel: UILabel!
     let pickerView = UIPickerView()
-//    let activites = ["None", "Low", "Medium", "High"]
-    
-    let activites = [
-        Activity(title: "None", value: 0),
-        Activity(title: "Low", value: 50),
-        Activity(title: "Medium", value: 150),
-        Activity(title: "High", value: 250)
-     ]
+    let activites = Activity.allCases
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,18 +66,6 @@ class HomeViewController: UIViewController {
         let activityIndex = pickerView.selectedRow(inComponent: 0)
         let activity = activites[activityIndex]
         var activityValue = activity.value
-//        switch activity.title {
-//        case "None":
-//            activityValue = 0
-//        case "Low":
-//            activityValue = 50
-//        case "Medium":
-//            activityValue = 150
-//        case "High":
-//            activityValue = 250 
-//        default:
-//            activityValue = 0
-//        }
         
         let selectedSex = sexSegmentControl.selectedSegmentIndex
         var result = ""

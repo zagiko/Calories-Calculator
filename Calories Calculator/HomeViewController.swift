@@ -9,6 +9,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var ageField: UITextField!
     @IBOutlet weak var activityField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
+    @IBOutlet weak var resultLabel: UILabel!
+    
+    
     let pickerView = UIPickerView()
     
     let activites = ["None", "Low", "Medium", "High"]
@@ -19,13 +22,82 @@ class HomeViewController: UIViewController {
         configuresexSegmentControl()
         configureTextFields()
         configureActivityField()
-        
+    
         weightField.becomeFirstResponder()
     }
+    
     @IBAction func calculateDidTap(_ sender: Any) {
+       guard let weight = Int(weightField.text ?? ""),
+             let height = Int(heightField.text ?? ""),
+             let age = Int(ageField.text ?? ""), weight > 0 && height > 0 && age > 0 else {
+           return
+       }
+        
+        let activityIndex = pickerView.selectedRow(inComponent: 0)
+        let activity = activites[activityIndex]
+        
+        var activityValue = 0
+        switch activity {
+        case "None":
+            activityValue = 0
+        case "Low":
+            activityValue = 50
+        case "Medium":
+            activityValue = 150
+        case "High":
+            activityValue = 250
+        default:
+            activityValue = 0
+        }
+        
+        let selectedSex = sexSegmentControl.selectedSegmentIndex
+        var result = ""
+        switch selectedSex {
+        case 0:
+            let result = Double(10 * weight) + (6.25 * Double(height)) - Double(5 * age) + 5.0 + Double(activityValue)
+            showAlertWith(title:String(result))
+        case 1:
+            let result = Double(8 * weight) + (5.25 * Double(height)) - Double(5 * age) + 5 - 161 + Double(activityValue)
+            showAlertWith(title:String(result))
+        default: break
+            
+        }
+        
     }
     
+    func showAlertWith(title: String) {
+        let alert = UIAlertController(title: "Your result", message: title, preferredStyle: .alert)
+        alert.addAction(.init(title: "Ok", style: .cancel))
+        self.present(alert, animated: true)
+    }
+    
+    @IBAction func sexControlDidChange(_ sender: UISegmentedControl) {
+        //        switch sender.selectedSegmentIndex {
+        //        case 0:
+        //            break
+        //
+        //        case 1:
+        //            break
+        //
+        //        default: break
+        //
+        //        }
+        
+        clear()
+    }
+    
+    
     @IBAction func clearDidTap(_ sender: Any) {
+        clear()
+    }
+    
+    func clear() {
+        weightField.text = nil
+        heightField.text = nil
+        ageField.text = nil
+        pickerView.selectRow(0, inComponent: 0, animated: true)
+        selectActivityBy(row: 0)
+        weightField.becomeFirstResponder()
     }
     
     func configuresexSegmentControl() {
@@ -34,7 +106,7 @@ class HomeViewController: UIViewController {
         sexSegmentControl.insertSegment(withTitle: "Female", at: 1, animated: false)
         sexSegmentControl.selectedSegmentIndex = 0
     }
-
+    
     func configureTextFields() {
         weightField.delegate = self
         weightField.keyboardType = .numberPad
@@ -65,7 +137,7 @@ extension HomeViewController: UITextFieldDelegate {
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)
-    
+        
     }
 }
 

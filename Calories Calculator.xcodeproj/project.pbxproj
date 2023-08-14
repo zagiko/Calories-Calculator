@@ -13,6 +13,8 @@
 		270956E12A84DCF2004C2728 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270956DF2A84DCF2004C2728 /* Main.storyboard */; };
 		270956E32A84DCF3004C2728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 270956E22A84DCF3004C2728 /* Assets.xcassets */; };
 		270956E62A84DCF3004C2728 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270956E42A84DCF3004C2728 /* LaunchScreen.storyboard */; };
+		27B8482A2A8A4E6D00ACAC82 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B848292A8A4E6D00ACAC82 /* Activity.swift */; };
+		27B8482C2A8A57CB00ACAC82 /* ActivitesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B8482B2A8A57CB00ACAC82 /* ActivitesListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		270956E22A84DCF3004C2728 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		270956E52A84DCF3004C2728 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		270956E72A84DCF3004C2728 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27B848292A8A4E6D00ACAC82 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		27B8482B2A8A57CB00ACAC82 /* ActivitesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitesListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +64,11 @@
 				270956DB2A84DCF2004C2728 /* SceneDelegate.swift */,
 				270956DD2A84DCF2004C2728 /* HomeViewController.swift */,
 				270956DF2A84DCF2004C2728 /* Main.storyboard */,
+				27B8482B2A8A57CB00ACAC82 /* ActivitesListViewController.swift */,
 				270956E22A84DCF3004C2728 /* Assets.xcassets */,
 				270956E42A84DCF3004C2728 /* LaunchScreen.storyboard */,
 				270956E72A84DCF3004C2728 /* Info.plist */,
+				27B848292A8A4E6D00ACAC82 /* Activity.swift */,
 			);
 			path = "Calories Calculator";
 			sourceTree = "<group>";
@@ -140,7 +146,9 @@
 			files = (
 				270956DE2A84DCF2004C2728 /* HomeViewController.swift in Sources */,
 				270956DA2A84DCF2004C2728 /* AppDelegate.swift in Sources */,
+				27B8482A2A8A4E6D00ACAC82 /* Activity.swift in Sources */,
 				270956DC2A84DCF2004C2728 /* SceneDelegate.swift in Sources */,
+				27B8482C2A8A57CB00ACAC82 /* ActivitesListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

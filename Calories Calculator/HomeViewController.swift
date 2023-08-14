@@ -1,39 +1,6 @@
 //
 
 import UIKit
- 
-enum Activity: CaseIterable {
-    case none
-    case low
-    case medium
-    case high
-    
-    var title: String {
-        switch self {
-        case .none:
-            return "None"
-        case .low:
-            return "Low"
-        case .medium:
-            return "Medium"
-        case .high:
-            return "High"
-        }
-    }
-    
-    var value: Int {
-        switch self {
-        case .none:
-            return 0
-        case .low:
-            return 50
-        case .medium:
-            return 150
-        case .high:
-            return 250
-        }
-    }
-}
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var sexSegmentControl: UISegmentedControl!
@@ -42,7 +9,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var ageField: UITextField!
     @IBOutlet weak var activityField: UITextField!
     @IBOutlet weak var calculateButton: UIButton!
-    @IBOutlet weak var resultLabel: UILabel!
     let pickerView = UIPickerView()
     let activites = Activity.allCases
     
@@ -54,6 +20,16 @@ class HomeViewController: UIViewController {
         configureActivityField()
         
         weightField.becomeFirstResponder()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "activitySegue" {
+            if let activityController = segue.destination as? ActivitesListViewController {
+                let activityIndex = self.pickerView.selectedRow(inComponent: 0)
+                let activity = self.activites[activityIndex]
+                activityController.activity = activity
+            }
+        }
     }
     
     @IBAction func calculateDidTap(_ sender: Any) {
@@ -68,7 +44,7 @@ class HomeViewController: UIViewController {
         var activityValue = activity.value
         
         let selectedSex = sexSegmentControl.selectedSegmentIndex
-        var result = ""
+
         switch selectedSex {
         case 0:
             let result = Double(10 * weight) + (6.25 * Double(height)) - Double(5 * age) + 5.0 + Double(activityValue)
@@ -85,6 +61,9 @@ class HomeViewController: UIViewController {
     func showAlertWith(title: String) {
         let alert = UIAlertController(title: "Your result", message: title, preferredStyle: .alert)
         alert.addAction(.init(title: "Ok", style: .cancel))
+        alert.addAction(.init(title: "About activity", style: .default) { _ in
+            self.performSegue(withIdentifier: "activitySegue", sender: self)
+        })
         self.present(alert, animated: true)
     }
     

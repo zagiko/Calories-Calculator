@@ -43,19 +43,17 @@ class HomeViewController: UIViewController {
         let activity = activites[activityIndex]
         var activityValue = activity.value
         
-        let selectedSex = sexSegmentControl.selectedSegmentIndex
+        guard let selectedSex = Sex(rawValue: sexSegmentControl.selectedSegmentIndex) else { return }
 
         switch selectedSex {
-        case 0:
+        case .male:
             let result = Double(10 * weight) + (6.25 * Double(height)) - Double(5 * age) + 5.0 + Double(activityValue)
             showAlertWith(title:String(result))
-        case 1:
+        case .female:
             let result = Double(8 * weight) + (5.25 * Double(height)) - Double(5 * age) + 5 - 161 + Double(activityValue)
             showAlertWith(title:String(result))
-        default: break
-            
         }
-        
+ 
     }
     
     func showAlertWith(title: String) {
@@ -68,17 +66,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func sexControlDidChange(_ sender: UISegmentedControl) {
-        //        switch sender.selectedSegmentIndex {
-        //        case 0:
-        //            break
-        //
-        //        case 1:
-        //            break
-        //
-        //        default: break
-        //
-        //        }
-        
+     
         clear()
     }
     
@@ -98,8 +86,8 @@ class HomeViewController: UIViewController {
     
     func configuresexSegmentControl() {
         sexSegmentControl.removeAllSegments()
-        sexSegmentControl.insertSegment(withTitle: "Male", at: 0, animated: false)
-        sexSegmentControl.insertSegment(withTitle: "Female", at: 1, animated: false)
+        sexSegmentControl.insertSegment(withTitle: Sex.male.title, at: 0, animated: false)
+        sexSegmentControl.insertSegment(withTitle: Sex.female.title, at: 1, animated: false)
         sexSegmentControl.selectedSegmentIndex = 0
     }
     
